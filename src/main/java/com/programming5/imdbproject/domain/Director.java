@@ -23,7 +23,7 @@ public class Director {
     @Column(name = "dob", nullable = false)
     private LocalDate dateOfBirth;
 
-    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "director", fetch = FetchType.LAZY)
     private List<Movie> movies;
 
     public Director() {

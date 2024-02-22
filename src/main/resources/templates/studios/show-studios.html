@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Studios</title>
+</head>
+<body>
+
+<!-- Add table to show directors -->
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr th:each="temopStudio : ${studios}">
+        <td th:text="${temopStudio.name}" />
+        <td th:text="${temopStudio.location}" />
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
