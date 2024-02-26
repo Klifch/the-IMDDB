@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Movies</title>
+</head>
+<body>
+
+<!-- Add table to show directors -->
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr th:each="tempMovie : ${movies}">
+        <td th:text="${tempMovie.movieName}" />
+        <td th:text="${tempMovie.movieQuote}" />
+        <td th:text="${tempMovie.studio.name}" />
+        <td th:text="${tempMovie.director.firstName} + ' ' + ${tempMovie.director.lastName}" />
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
