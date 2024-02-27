@@ -2,21 +2,49 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+
     <title>All Movies</title>
 </head>
 <body>
 
-<!-- Add table to show directors -->
-<table class="table table-bordered table-striped">
-    <tbody>
-    <tr th:each="tempMovie : ${movies}">
-        <td th:text="${tempMovie.movieName}" />
-        <td th:text="${tempMovie.movieQuote}" />
-        <td th:text="${tempMovie.studio.name}" />
-        <td th:text="${tempMovie.director.firstName} + ' ' + ${tempMovie.director.lastName}" />
-    </tr>
-    </tbody>
-</table>
+<div th:insert="~{fragments/nav-bar :: navigation}"></div>
+
+
+<div class="container-fluid">
+<h3> All Movies </h3>
+<hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Quote</th>
+            <th>Studio</th>
+            <th>Director</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempMovie : ${movies}">
+            <td th:text="${tempMovie.movieName}" />
+            <td th:text="${tempMovie.movieQuote}" />
+            <td th:text="${tempMovie.studio.name}" />
+            <td th:text="${tempMovie.director.firstName} + ' ' + ${tempMovie.director.lastName}" />
+            <td>
+                <a th:href="@{'/movies/' + ${tempMovie.movieId}}"
+                   class="btn btn-dark btn-sm" th:text="More" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 </html>

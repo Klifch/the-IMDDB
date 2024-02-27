@@ -19,4 +19,11 @@ public class DirectorServiceImpl implements DirectorService {
     public List<Director> getAll() {
         return directorRepository.findAll();
     }
+
+    @Override
+    public Director getById(Integer id) {
+        return directorRepository.findById(id).orElse(null);
+    }
+
+
 }

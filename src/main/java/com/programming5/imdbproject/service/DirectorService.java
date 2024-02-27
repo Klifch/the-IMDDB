@@ -8,4 +8,6 @@ public interface DirectorService {
 
     List<Director> getAll();
 
+    Director getById(Integer id);
+
 }

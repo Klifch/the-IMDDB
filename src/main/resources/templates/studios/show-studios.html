@@ -2,19 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+
     <title>All Studios</title>
 </head>
 <body>
 
-<!-- Add table to show directors -->
-<table class="table table-bordered table-striped">
-    <tbody>
-    <tr th:each="temopStudio : ${studios}">
-        <td th:text="${temopStudio.name}" />
-        <td th:text="${temopStudio.location}" />
-    </tr>
-    </tbody>
-</table>
+<div th:insert="~{fragments/nav-bar :: navigation}"></div>
+
+<div class="container-fluid">
+    <h3> All Studios </h3>
+    <hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Studio Name</th>
+            <th>Location</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="temopStudio : ${studios}">
+            <td th:text="${temopStudio.name}" />
+            <td th:text="${temopStudio.location}" />
+            <td>
+                <a th:href="@{'/studios/' + ${temopStudio.studioId}}"
+                   class="btn btn-dark btn-sm" th:text="More" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 </html>

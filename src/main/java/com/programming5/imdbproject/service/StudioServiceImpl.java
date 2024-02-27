@@ -19,4 +19,9 @@ public class StudioServiceImpl implements StudioService {
     public List<Studio> getAll() {
         return studioRepository.findAll();
     }
+
+    @Override
+    public Studio getById(Integer id) {
+        return studioRepository.findById(id).orElse(null);
+    }
 }

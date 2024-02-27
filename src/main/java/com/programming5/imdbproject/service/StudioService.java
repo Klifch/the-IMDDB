@@ -8,4 +8,6 @@ public interface StudioService {
 
     List<Studio> getAll();
 
+    Studio getById(Integer id);
+
 }

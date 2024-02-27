@@ -5,6 +5,7 @@ import com.programming5.imdbproject.service.DirectorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -27,6 +28,17 @@ public class DirectorController {
         model.addAttribute("directors", directors);
 
         return "directors/show-directors";
+    }
+
+    @GetMapping("/{id}")
+    public String showOneDirector(@PathVariable("id") Integer id, Model model) {
+
+        // TODO: should return DTO to not expose the director
+        Director director = directorService.getById(id);
+
+        model.addAttribute("director", director);
+
+        return "/directors/single-director";
     }
 
 }
