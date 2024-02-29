@@ -1,12 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Single Director</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+    <title>Movie information</title>
 </head>
 <body>
 
-<h3> Single Director </h3>
+<div th:insert="~{fragments/nav-bar :: navigation}"></div>
 
+<div class="container-fluid">
+
+    <div class="container grid gap-0 row-gap-1">
+
+        <div class="pt-3 mb-3">
+            <p class="h4" th:text="${director.firstName} + ' ' + ${director.lastName}" />
+        </div>
+
+        <div class="p-2">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" th:text="'ID: ' + ${director.directorId}" />
+                <li class="list-group-item" th:text="'First name: ' + ${director.firstName}" />
+                <li class="list-group-item" th:text="'Last name: ' + ${director.lastName}" />
+                <li class="list-group-item" th:text="'Date of birth: ' + ${director.dateOfBirth}" />
+                <li class="list-group-item" th:text="'Nationality: ' + ${director.nationality}" />
+                <li class="list-group-item" th:text="'Height: ' + ${director.height} + 'cm'" />
+            </ul>
+        </div>
+
+        <div class="p-2">
+
+            <div class="pt-3 mb-3">
+                <p class="h4" th:text="'Directed by ' + ${director.firstName} + ' ' + ${director.lastName} + ':'" />
+            </div>
+
+            <div class="list-group pb-3">
+                <a th:each="movie : ${director.movies}" th:href="@{'/movies/' + ${movie.movieId}}" class="list-group-item list-group-item-action">
+                    <p class="mb-1" th:text="${movie.rating} + '/10'" />
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" th:text="${movie.movieName}"/>
+                    </div>
+
+                    <small class="text-body-secondary" th:text="${movie.movieQuote}" />
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--<div th:replace="~{fragments/footer :: footer}"></div>-->
+
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

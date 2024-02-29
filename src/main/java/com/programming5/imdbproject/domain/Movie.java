@@ -30,6 +30,18 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     private MovieStatus status;
 
+    @Column(name = "budget")
+    private Double budget;
+
+    @Column(name = "box_office")
+    private Double box_office;
+
+    @Column(name = "rating")
+    private Double rating;
+
+    @Column(name = "description")
+    private String description;
+
     // Relations
     @ManyToOne(optional = false)
     @JoinColumn(name = "director_id")
@@ -54,6 +66,30 @@ public class Movie {
         this.movieQuote = movieQuote;
         this.releaseDate = releaseDate;
         this.status = status;
+        this.director = director;
+        this.studio = studio;
+    }
+
+    public Movie(
+            String movieName,
+            String movieQuote,
+            LocalDate releaseDate,
+            MovieStatus status,
+            Double budget,
+            Double box_office,
+            Double rating,
+            String description,
+            Director director,
+            Studio studio
+    ) {
+        this.movieName = movieName;
+        this.movieQuote = movieQuote;
+        this.releaseDate = releaseDate;
+        this.status = status;
+        this.budget = budget;
+        this.box_office = box_office;
+        this.rating = rating;
+        this.description = description;
         this.director = director;
         this.studio = studio;
     }
@@ -115,4 +151,38 @@ public class Movie {
     public void setStudio(Studio studio) {
         this.studio = studio;
     }
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
+
+    public Double getBox_office() {
+        return box_office;
+    }
+
+    public void setBox_office(Double box_office) {
+        this.box_office = box_office;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+
 }

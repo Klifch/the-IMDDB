@@ -23,16 +23,30 @@ public class Director {
     @Column(name = "dob", nullable = false)
     private LocalDate dateOfBirth;
 
-    @OneToMany(mappedBy = "director", fetch = FetchType.LAZY)
+    @Column(name = "height")
+    private Double height;
+
+    @Column(name = "nationality")
+    private String nationality;
+
+    @OneToMany(mappedBy = "director", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Movie> movies;
 
     public Director() {
     }
 
-    public Director(String firstName, String lastName, LocalDate dateOfBirth) {
+    public Director(
+            String firstName,
+            String lastName,
+            LocalDate dateOfBirth,
+            Double height,
+            String nationality
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.height = height;
+        this.nationality = nationality;
     }
 
     // Getters and setters
@@ -76,4 +90,22 @@ public class Director {
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+
 }

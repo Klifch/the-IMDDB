@@ -1,6 +1,7 @@
 package com.programming5.imdbproject.service;
 
 import com.programming5.imdbproject.domain.Director;
+import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.repository.DirectorRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,23 @@ public class DirectorServiceImpl implements DirectorService {
     @Override
     public Director getById(Integer id) {
         return directorRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Movie> getMoviesForDirectorById(Integer id) {
+
+        Director director = directorRepository.findById(id).orElse(null);
+
+        if (director == null) {
+            return null;
+        }
+
+        return director.getMovies();
+    }
+
+    @Override
+    public void delete(Integer id) {
+        directorRepository.deleteById(id);
     }
 
 

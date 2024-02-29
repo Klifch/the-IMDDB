@@ -1,12 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Single Movie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+    <title>Movie information</title>
 </head>
 <body>
 
-<h3> Single Movie </h3>
+<div th:insert="~{fragments/nav-bar :: navigation}"></div>
 
+<div class="container-fluid">
+
+    <div class="container grid gap-0 row-gap-1">
+
+        <div class="pt-3 mb-3">
+            <p class="h4" th:text="${movie.movieName}" />
+        </div>
+
+        <div class="p-2">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" th:text="'ID: ' + ${movie.movieId}" />
+                <li class="list-group-item" th:text="'Quote: ' + ${movie.movieQuote}" />
+                <li class="list-group-item" th:text="'Rating: ' + ${movie.rating} + '/10'" />
+                <li class="list-group-item" th:text="'Budget: ' + ${movie.budget} + '$'" />
+                <li class="list-group-item" th:text="'Box office: ' + ${movie.box_office} + '$'" />
+                <li class="list-group-item" th:text="'Status: ' + ${movie.status}" />
+                <li class="list-group-item" th:text="'Release date: ' + ${movie.releaseDate}" />
+            </ul>
+        </div>
+
+        <div class="p-2">
+
+            <div class="list-group pb-3">
+                <a th:href="@{'/directors/' + ${movie.director.directorId}}" class="list-group-item list-group-item-action">
+                    <p class="mb-1" th:text="'Directed by'" />
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" th:text="${movie.director.firstName} + ' ' + ${movie.director.lastName}"/>
+                    </div>
+
+                    <small class="text-body-secondary" th:text="'See more from this director'" />
+                </a>
+            </div>
+
+            <div class="list-group pb-3">
+                <a th:href="@{'/studios/' + ${movie.studio.studioId}}" class="list-group-item list-group-item-action">
+                    <p class="mb-1" th:text="'Produced by'" />
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" th:text="${movie.studio.name}"/>
+                    </div>
+
+                    <small class="text-body-secondary" th:text="'See more from this studio'" />
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--<div th:replace="~{fragments/footer :: footer}"></div>-->
+
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

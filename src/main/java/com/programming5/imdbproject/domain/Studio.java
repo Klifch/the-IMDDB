@@ -20,6 +20,9 @@ public class Studio {
     @Column(name = "office_location", nullable = false)
     private String location;
 
+    @Column(name = "total_employees")
+    private Integer totalEmployees;
+
     @OneToMany(mappedBy = "studio", fetch = FetchType.LAZY)
     private List<Movie> movies;
 
@@ -29,6 +32,12 @@ public class Studio {
     public Studio(String name, String location) {
         this.name = name;
         this.location = location;
+    }
+
+    public Studio(String name, String location, Integer totalEmployees) {
+        this.name = name;
+        this.location = location;
+        this.totalEmployees = totalEmployees;
     }
 
     // Getters and setters
