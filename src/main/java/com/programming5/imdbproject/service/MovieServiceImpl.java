@@ -1,6 +1,7 @@
 package com.programming5.imdbproject.service;
 
 import com.programming5.imdbproject.domain.Movie;
+import com.programming5.imdbproject.dto.MovieDto;
 import com.programming5.imdbproject.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie getById(Integer id) {
         return movieRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Movie> search(String searchTerm) {
+        return movieRepository.findByMovieNameContainingIgnoreCase(searchTerm);
     }
 
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+
+    <title>Search Movies</title>
+
+    <script th:src="@{/js/searchMovie.js}"></script>
+</head>
+<body>
+<div th:insert="~{fragments/nav-bar :: navigation}"></div>
+
+<main class="container">
+    <h1>Search issues</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+            <li class="breadcrumb-item"><a th:href="@{'/movies/show'}">Movies</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Search</li>
+        </ol>
+    </nav>
+
+    <div class="mb-3">
+        <label for="search" class="form-label">Start typing to search...</label>
+        <input type="text" class="form-control" id="search">
+    </div>
+
+    <div id="search-results"></div>
+</main>
+
+</body>
+</html>

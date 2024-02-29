@@ -43,5 +43,10 @@ public class MovieController {
         return "/movies/single-movie";
     }
 
+    @GetMapping("/search")
+    public String searchMovies() {
+        return "/movies/searchMovies";
+    }
+
 
 }
