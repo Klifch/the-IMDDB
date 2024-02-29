@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
 
+    <script th:src="@{/js/directorsDelete.js}"></script>
+
     <title>All Directors</title>
 </head>
 <body>
@@ -28,13 +30,18 @@
         </thead>
 
         <tbody>
-        <tr th:each="temopDirector : ${directors}">
+        <tr th:each="temopDirector : ${directors}" th:id="'director-' + ${temopDirector.directorId}">
             <td th:text="${temopDirector.firstName}" />
             <td th:text="${temopDirector.lastName}" />
             <td th:text="${temopDirector.dateOfBirth}" />
             <td>
                 <a th:href="@{'/directors/' + ${temopDirector.directorId}}"
                    class="btn btn-dark btn-sm" th:text="More" />
+
+                <button class="btn btn-sm btn-danger delete-director-button"
+                        th:attr="data-director-id=${temopDirector.directorId}">
+                    Delete
+                </button>
             </td>
         </tr>
         </tbody>
