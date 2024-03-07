@@ -22,14 +22,12 @@ public class MovieApiController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MovieDto>> searchMovies(@RequestParam("searchTerm") String searchTerm
-    ) {
+    public ResponseEntity<List<MovieDto>> searchMovies(@RequestParam("searchTerm") String searchTerm) {
         List<MovieDto> foundMovies = movieService
                 .search(searchTerm)
                 .stream()
                 .map(MovieDto::fromDomain)
                 .toList();
-//        System.out.println(foundMovies);
         return ResponseEntity.ok(foundMovies);
     }
 

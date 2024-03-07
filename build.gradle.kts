@@ -24,6 +24,10 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.webjars.npm:bootstrap:5.3.2")
 	implementation("org.webjars:webjars-locator-core:0.48")
+	implementation("org.modelmapper:modelmapper:3.2.0")
+	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
 }
 
 tasks.withType<Test> {

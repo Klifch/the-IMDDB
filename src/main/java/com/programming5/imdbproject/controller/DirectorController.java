@@ -41,4 +41,10 @@ public class DirectorController {
         return "/directors/single-director";
     }
 
+    @GetMapping("/add")
+    public String showForToAdd() {
+
+        return "/directors/addDirector";
+    }
+
 }

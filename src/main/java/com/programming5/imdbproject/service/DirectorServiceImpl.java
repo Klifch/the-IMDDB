@@ -5,6 +5,7 @@ import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.repository.DirectorRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -41,6 +42,18 @@ public class DirectorServiceImpl implements DirectorService {
     @Override
     public void delete(Integer id) {
         directorRepository.deleteById(id);
+    }
+
+    @Override
+    public Director add(String firstName, String lastName, LocalDate dateOfBirth) {
+        Director director = new Director();
+        director.setFirstName(firstName);
+        director.setLastName(lastName);
+        director.setDateOfBirth(dateOfBirth);
+
+        directorRepository.save(director);
+
+        return director;
     }
 
 
