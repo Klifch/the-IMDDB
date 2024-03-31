@@ -7,11 +7,15 @@ form.addEventListener('submit', async (event) => {
     const theFirstName = document.querySelector('#firstname').value;
     const theLastName = document.querySelector('#lastname').value;
     const theDateOfBirth = document.querySelector('#dob').value;
+    const theNationality = document.querySelector('#nationality').value;
+    const theHeight = document.querySelector('#height').value;
 
     const requestBody = {
         firstName: theFirstName,
         lastName: theLastName,
-        dateOfBirth: theDateOfBirth
+        dateOfBirth: theDateOfBirth,
+        nationality: theNationality,
+        height: theHeight
     };
 
     const response = await fetch('/api/directors', {
@@ -29,5 +33,14 @@ form.addEventListener('submit', async (event) => {
         window.location.href = `/directors/${director.id}`;
     }
 
+    if (response.status === 400) {
+        const errorResponse = await response.json();
+        const errors = errorResponse.errors;
+        let validationErrors = ""
+        errors.forEach(error => {
+            validationErrors += `${error.field} ${error.defaultMessage}\n`;
+        });
+        alert(validationErrors);
+    }
 
 });

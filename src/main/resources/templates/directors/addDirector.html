@@ -26,13 +26,7 @@
         <div class="input-group mb-3 w-25">
             <span class="input-group-text" th:text="'First Name'" />
             <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Phil">
-<!--            <div th:if="${#fields.hasErrors('firstName')}" class="invalid-feedback">-->
-<!--                <span th:errors="*{firstName}"></span>-->
-<!--            </div>-->
         </div>
-        <!--        <span th:if="${#fields.hasErrors('firstName')}"-->
-        <!--              th:errors="*{firstName}"-->
-        <!--              class="badge bg-danger" ></span>-->
 
         <div class="input-group mb-3 w-25">
             <span class="input-group-text" th:text="'Last Name'" />
@@ -42,6 +36,16 @@
         <div class="input-group mb-3 w-25">
             <span class="input-group-text" th:text="'Date of birth'" />
             <input type="text" class="form-control" id="dob" name="dob" placeholder="dd-mm-yyyy">
+        </div>
+
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text" th:text="'Nationality'" />
+            <input type="text" class="form-control" id="nationality" name="nationality" placeholder="UK">
+        </div>
+
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text" th:text="'Height'" />
+            <input type="text" class="form-control" id="height" name="height" placeholder="180">
         </div>
 
         <button class="btn btn-dark col-1" type="submit">Submit</button>

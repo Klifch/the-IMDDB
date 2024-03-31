@@ -45,11 +45,56 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public Director add(String firstName, String lastName, LocalDate dateOfBirth) {
+    public Director add(
+            String firstName,
+            String lastName,
+            LocalDate dateOfBirth,
+            String nationality,
+            Double height
+    ) {
         Director director = new Director();
         director.setFirstName(firstName);
         director.setLastName(lastName);
         director.setDateOfBirth(dateOfBirth);
+
+        if (nationality != null) {
+            director.setNationality(nationality);
+        }
+        if (height != null) {
+            director.setHeight(height);
+        }
+
+        directorRepository.save(director);
+
+        return director;
+    }
+
+    @Override
+    public Director patch(
+            Integer id,
+            String firstName,
+            String lastName,
+            LocalDate birthdate,
+            String nationality,
+            Double height
+    ) {
+        Director director = getById(id);
+
+        if (firstName != null) {
+            director.setFirstName(firstName);
+        }
+        if (lastName != null) {
+            director.setLastName(lastName);
+        }
+        if (birthdate != null) {
+            director.setDateOfBirth(birthdate);
+        }
+        if (nationality != null) {
+            director.setNationality(nationality);
+        }
+        if (height != null) {
+            director.setHeight(height);
+        }
 
         directorRepository.save(director);
 

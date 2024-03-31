@@ -5,6 +5,7 @@ import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.dto.AddDirectorDto;
 import com.programming5.imdbproject.dto.DirectorDto;
 import com.programming5.imdbproject.dto.MovieDto;
+import com.programming5.imdbproject.dto.PatchDirectorDto;
 import com.programming5.imdbproject.service.DirectorService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -35,6 +36,7 @@ public class DirectorApiController {
             return ResponseEntity.notFound().build();
         }
 
+        // TODO: model mapper
         List<MovieDto> movieDtos = movies
                 .stream()
                 .map(MovieDto::fromDomain)
@@ -48,7 +50,9 @@ public class DirectorApiController {
         Director director = directorService.add(
                 addDirectorDto.firstName(),
                 addDirectorDto.lastName(),
-                addDirectorDto.dateOfBirth()
+                addDirectorDto.dateOfBirth(),
+                addDirectorDto.nationality(),
+                addDirectorDto.height()
                 );
 
         DirectorDto createdDirector = modelMapper.map(director, DirectorDto.class);
@@ -58,12 +62,19 @@ public class DirectorApiController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<DirectorDto> updateFieldDirector(
-            @RequestBody @Valid AddDirectorDto addDirectorDto,
+            @RequestBody @Valid PatchDirectorDto patchDirectorDto,
             @PathVariable("id") Integer id
     ) {
+        Director patchedDirector = directorService.patch(
+                id,
+                patchDirectorDto.firstName(),
+                patchDirectorDto.lastName(),
+                patchDirectorDto.dateOfBirth(),
+                patchDirectorDto.nationality(),
+                patchDirectorDto.height()
+        );
 
-        // Ask raoul how to do it right
-        return null;
+        return ResponseEntity.ok(modelMapper.map(patchedDirector, DirectorDto.class));
     }
 
     @DeleteMapping("/{id}")

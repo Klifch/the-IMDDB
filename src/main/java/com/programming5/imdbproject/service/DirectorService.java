@@ -16,5 +16,20 @@ public interface DirectorService {
 
     void delete(Integer id);
 
-    Director add(String firstName, String lastName, LocalDate dateOfBirth);
+    Director add(
+            String firstName,
+            String lastName,
+            LocalDate dateOfBirth,
+            String nationality,
+            Double height
+    );
+
+    Director patch(
+            Integer id,
+            String firstName,
+            String lastName,
+            LocalDate birthdate,
+            String nationality,
+            Double height
+    );
 }

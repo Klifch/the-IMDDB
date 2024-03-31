@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+
+    <script th:src="@{/js/updateDirector.js}" defer></script>
+
+    <title>Update Director</title>
+</head>
+<body>
+
+<div th:insert="~{fragments/nav-bar :: navigation}"></div>
+
+
+<div class="container-fluid">
+    <h3>Update Director</h3>
+    <hr>
+
+    <form id="update-director-form">
+
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text" th:text="'First Name'" />
+            <input
+                    type="text"
+                    class="form-control"
+                    id="firstname"
+                    name="firstname"
+                    placeholder="Phil"
+                    th:value="${director.firstName}"
+            >
+        </div>
+
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text" th:text="'Last Name'" />
+            <input
+                    type="text"
+                    class="form-control"
+                    id="lastname"
+                    name="lastname"
+                    placeholder="Mahar"
+                    th:value="${director.lastName}"
+            >
+        </div>
+
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text" th:text="'Date of birth'" />
+            <input
+                    type="text"
+                    class="form-control"
+                    id="dob"
+                    name="dob"
+                    placeholder="dd-mm-yyyy"
+                    th:value="${director.dateOfBirth}"
+            >
+        </div>
+
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text" th:text="'Nationality'" />
+            <input
+                    type="text"
+                    class="form-control"
+                    id="nationality"
+                    name="nationality"
+                    placeholder="UK"
+                    th:value="${director.nationality}"
+            >
+        </div>
+
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text" th:text="'Height'" />
+            <input
+                    type="text"
+                    class="form-control"
+                    id="height"
+                    name="height"
+                    placeholder="180"
+                    th:value="${director.height}"
+            >
+        </div>
+
+        <button class="btn btn-dark col-1 disabled" type="submit">Update</button>
+    </form>
+
+</div>
+
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

@@ -14,14 +14,8 @@
 <div th:insert="~{fragments/nav-bar :: navigation}"></div>
 
 <main class="container">
-    <h1>Search issues</h1>
-
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
-            <li class="breadcrumb-item"><a th:href="@{'/movies/show'}">Movies</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Search</li>
-        </ol>
-    </nav>
+    <h3>Search Movies</h3>
+    <hr>
 
     <div class="mb-3">
         <label for="search" class="form-label">Start typing to search...</label>
@@ -30,6 +24,8 @@
 
     <div id="search-results"></div>
 </main>
+
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 </html>

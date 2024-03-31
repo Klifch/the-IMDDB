@@ -1,22 +1,26 @@
-package com.programming5.imdbproject.dto;
+package com.programming5.imdbproject.viewmodel;
+
+import com.programming5.imdbproject.domain.Movie;
 
 import java.time.LocalDate;
+import java.util.List;
 
-public class DirectorDto {
+public class DirectorViewModel {
 
-    private Integer id;
+    private Integer directorId;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private String nationality;
     private Double height;
+    private List<Movie> movies;
 
-    public Integer getId() {
-        return id;
+    public Integer getDirectorId() {
+        return directorId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDirectorId(Integer directorId) {
+        this.directorId = directorId;
     }
 
     public String getFirstName() {
@@ -57,5 +61,13 @@ public class DirectorDto {
 
     public void setHeight(Double height) {
         this.height = height;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 }
