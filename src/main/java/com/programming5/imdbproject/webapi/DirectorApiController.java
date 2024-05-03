@@ -29,7 +29,6 @@ public class DirectorApiController {
 
     @GetMapping("/{id}/movies")
     public ResponseEntity<List<MovieDto>> getDirectorMovies(@PathVariable("id") Integer id) {
-
         List<Movie> movies = directorService.getMoviesForDirectorById(id);
 
         if (movies == null) {
