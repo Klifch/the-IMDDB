@@ -20,6 +20,22 @@ const markChangedFields = () => {
     });
 }
 
+const updateInitialValues = (responseData) => {
+    initialValues[0] = responseData.firstName;
+    initialValues[1] = responseData.lastName;
+    initialValues[2] = responseData.dateOfBirth;
+    initialValues[3] = responseData.nationality;
+    initialValues[4] = responseData.height.toString();
+};
+
+const updateFieldsWithResponse = (responseData) => {
+    document.querySelector('#firstname').value = responseData.firstName;
+    document.querySelector('#lastname').value = responseData.lastName;
+    document.querySelector('#dob').value = responseData.dateOfBirth;
+    document.querySelector('#nationality').value = responseData.nationality;
+    document.querySelector('#height').value = responseData.height.toString();
+};
+
 elements.forEach((item) => {
 
     item.addEventListener('change', async (event) => {
@@ -65,12 +81,6 @@ form.addEventListener('submit', async (event) => {
 
     event.preventDefault();
 
-    const theFirstName = document.querySelector('#firstname').value;
-    const theLastName = document.querySelector('#lastname').value;
-    const theDateOfBirth = document.querySelector('#dob').value;
-    const theNationality = document.querySelector('#nationality').value;
-    const theHeight = document.querySelector('#height').value;
-
     const requestBody = {
     };
 
@@ -80,6 +90,30 @@ form.addEventListener('submit', async (event) => {
         }
     });
 
-    console.log(requestBody);
+    const directorId = event.target.getAttribute('director-id');
+
+    const response = await fetch(`/api/directors/${directorId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    });
+
+    if (response.status === 200) {
+        const director = await response.json();
+
+        updateInitialValues(director);
+
+        updateFieldsWithResponse(director);
+
+        markChangedFields();
+
+        alert("Director updated!");
+
+        submitButton.classList.add("disabled");
+        submitButton.disabled = true;
+    }
 
 })
