@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+
+  <title>Login Page</title>
+</head>
+<body>
+
+<main class="container">
+  <h1>Login</h1>
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+      <li class="breadcrumb-item active title" aria-current="page">Login</li>
+    </ol>
+  </nav>
+
+  <form th:action="@{/login}" method="POST">
+    <div class="pb-3">
+      <label for="username" class="form-label">Username</label>
+      <input id="username" name="username" class="form-control" type="text">
+    </div>
+    <div class="pb-3">
+      <label for="password" class="form-label">Password</label>
+      <input id="password" name="password" class="form-control" type="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Log in</button>
+  </form>
+</main>
+<th:block th:insert="~{fragments/layout :: footer}"/>
+</body>
+</html>

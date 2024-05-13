@@ -45,7 +45,9 @@ public class DirectorApiController {
     }
 
     @PostMapping
-    public ResponseEntity<DirectorDto> addDirector(@RequestBody @Valid AddDirectorDto addDirectorDto) {
+    public ResponseEntity<DirectorDto> addDirector(
+            @RequestBody @Valid AddDirectorDto addDirectorDto
+    ) {
         Director director = directorService.add(
                 addDirectorDto.firstName(),
                 addDirectorDto.lastName(),
