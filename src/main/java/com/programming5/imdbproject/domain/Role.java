@@ -2,6 +2,8 @@ package com.programming5.imdbproject.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -12,6 +14,9 @@ public class Role {
 
     @Column(name = "rolename")
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Collection<User> users;
 
     public Role() {
     }

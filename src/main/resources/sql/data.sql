@@ -9,6 +9,19 @@
 -- INSERT INTO movies (movie_name, movie_quote, release, status, budget, box_office, rating, description, director_id, studio_id) VALUES
 --                                                                                                ('Movie 1', 'Quote 1', '2022-01-15', 'RELEASED', 10000, 200000, 7.8, 'description 1', 1, 1),
 --                                                                                                ('Movie 2', 'Quote 2', '2023-02-20', 'PRODUCTION', 324234, 4329584, 9.2, 'description 2', 2, 2);
+-- Users
+INSERT INTO application_users (username, email, password, active)
+VALUES
+    ('oleksii', 'oleksii@gmail.com','$2a$10$7BcPi7iy5Pnx/keDO3Wi1.UlGoO3I0EqogNZGjPiegqY6M63pKz7q', true); --12345
+
+INSERT INTO roles (rolename)
+VALUES
+    ('ROLE_REGULAR'),('ROLE_ADMIN');
+
+INSERT INTO users_roles (user_id, role_id)
+VALUES
+    (1, 1),
+    (1, 2);
 
 -- Directors
 INSERT INTO directors (first_name, last_name, dob, height, nationality) VALUES
