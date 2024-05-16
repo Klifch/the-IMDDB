@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 <div th:fragment="navigation">
@@ -9,26 +9,45 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse ms-3" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown me-1">
                         <a class="nav-link dropdown-toggle" th:text="'Movies'" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" />
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" th:href="@{/movies/show}" th:text="'All Movies'" /></li>
                             <li><a class="nav-link" th:href="@{/movies/search}" th:text="'Serach Movies'" /></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown me-1">
                         <a class="nav-link dropdown-toggle" th:text="'Directors'" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" />
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" th:href="@{/directors/show}" th:text="'All Directors'" /></li>
                             <li><a class="nav-link" th:href="@{/directors/add}" th:text="'Add Directors'" /></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item me-1">
                         <a class="nav-link" th:href="@{/studios/show}" th:text="'Studios'" />
                     </li>
                 </ul>
+            </div>
+            <div class="float-end">
+                <a sec:authorize="!isAuthenticated()" class="btn btn-outline-success me-2 p-1" th:href="@{/login}" th:text="'Login'" />
+                <a sec:authorize="!isAuthenticated()" class="btn btn-outline-dark me-2 p-1" href="/" th:text="'Register'" />
+                <div class="dropdown me-2" sec:authorize="isAuthenticated()">
+                    <button type="button" class="btn btn-light dropdown-toggle p-1" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        Welcome, <span sec:authentication="name"></span>
+                    </button>
+                    <div class="dropdown-menu p-4">
+                        <div class="mb-3">
+                            <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark me-2 p-1" th:href="@{/logout}" th:text="'Logout'" />
+                        </div>
+                        <div class="mb-3">
+                            <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark" th:href="@{/logout}" th:text="'Logout'" />
+                        </div>
+                    </div>
+
+                </div>
+<!--                <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark me-2 p-1" th:href="@{/logout}" th:text="'Logout'" />-->
             </div>
         </div>
     </nav>

@@ -48,6 +48,7 @@ public class SecurityConfig {
                     .anyRequest().authenticated();
         });
         http.csrf(csrf -> csrf.disable());
+
         http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(
                 (request, response, ex) -> {
                     if (request.getRequestURI().startsWith("/api")) {
@@ -57,7 +58,12 @@ public class SecurityConfig {
                     }
                 }
         ));
-        http.formLogin(login -> login.permitAll().loginPage("/login"));
+        http.formLogin((login) -> login
+                        .permitAll()
+                        .loginPage("/login"));
+
+        http.logout(logout -> logout.logoutSuccessUrl("/"));
+
         return http.build();
     }
 

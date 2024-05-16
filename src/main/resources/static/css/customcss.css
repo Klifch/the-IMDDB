@@ -2,3 +2,18 @@
     border: 2px solid rgba(12, 102, 16, 0.5);
     transition: border-color 0.3s;
 }
+
+.glass {
+    background-color: rgba(167, 167, 167, 0.25);
+    backdrop-filter: blur(15px);
+}
+
+.gradient-bg {
+    background-image: radial-gradient(circle, #121870 ,#62686f);
+}
+
+.footer-sm-text {
+    border-color: transparent;
+    font-size: 0.95em;
+    color: #9595b4;
+}
