@@ -30,24 +30,19 @@
                     </li>
                 </ul>
             </div>
-            <div class="float-end">
+            <div class="nav-item float-end ms-1">
                 <a sec:authorize="!isAuthenticated()" class="btn btn-outline-success me-2 p-1" th:href="@{/login}" th:text="'Login'" />
                 <a sec:authorize="!isAuthenticated()" class="btn btn-outline-dark me-2 p-1" href="/" th:text="'Register'" />
-                <div class="dropdown me-2" sec:authorize="isAuthenticated()">
-                    <button type="button" class="btn btn-light dropdown-toggle p-1" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                        Welcome, <span sec:authentication="name"></span>
-                    </button>
-                    <div class="dropdown-menu p-4">
-                        <div class="mb-3">
+                <div class="dropdown me-3" sec:authorize="isAuthenticated()">
+                    <button type="button" class="btn btn-light dropdown-toggle p-1" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" th:text="${#authentication.principal.email}"></button>
+                    <div class="dropdown-menu dropdown-menu-lg-end p-4">
+                        <span class="dropdown-item mb-3" th:text="'Username: ' + ${#authentication.name}"></span>
+                        <span class="dropdown-item mb-3" th:text="'Email: ' + ${#authentication.principal.email}"></span>
+                        <div class="text-center"> <!-- dropdown-item???? -->
                             <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark me-2 p-1" th:href="@{/logout}" th:text="'Logout'" />
                         </div>
-                        <div class="mb-3">
-                            <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark" th:href="@{/logout}" th:text="'Logout'" />
-                        </div>
                     </div>
-
                 </div>
-<!--                <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark me-2 p-1" th:href="@{/logout}" th:text="'Logout'" />-->
             </div>
         </div>
     </nav>
