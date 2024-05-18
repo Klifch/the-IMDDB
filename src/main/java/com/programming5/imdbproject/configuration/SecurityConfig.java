@@ -69,7 +69,7 @@ public class SecurityConfig {
 
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(); // 10 rounds by default
     }
 
 }

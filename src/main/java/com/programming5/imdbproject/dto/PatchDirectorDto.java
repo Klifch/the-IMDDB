@@ -10,7 +10,7 @@ public record PatchDirectorDto(
         String firstName,
         @Size(min = 3, max = 10)
         String lastName,
-        @JsonFormat(pattern = "dd-MM-yyyy")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate dateOfBirth,
 
         String nationality,

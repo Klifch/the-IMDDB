@@ -12,7 +12,9 @@
 -- Users
 INSERT INTO application_users (username, email, password, active)
 VALUES
-    ('oleksii', 'oleksii@gmail.com','$2a$10$7BcPi7iy5Pnx/keDO3Wi1.UlGoO3I0EqogNZGjPiegqY6M63pKz7q', true); --12345
+    ('oleksii', 'oleksii@gmail.com','$2a$10$7BcPi7iy5Pnx/keDO3Wi1.UlGoO3I0EqogNZGjPiegqY6M63pKz7q', true), --12345
+    ('sam', 'sam_altman@ai.com', '$2a$10$G5ORwiWTs9fiLvQWM0TEXOJTc/LWeYckJDVgb6RjcuaCmD03QxTyW', true), --qwe
+    ('jo3', 'jo_biden@us.gov', '$2a$10$TUtwTTjPTeVI3cTAEGCGpu0Q9Cfy4LExw1fasS6RnzvAhTRaY6ZHW', true); --12qw
 
 INSERT INTO roles (rolename)
 VALUES
@@ -21,7 +23,9 @@ VALUES
 INSERT INTO users_roles (user_id, role_id)
 VALUES
     (1, 1),
-    (1, 2);
+    (1, 2),
+    (2, 1),
+    (3, 2);
 
 -- Directors
 INSERT INTO directors (first_name, last_name, dob, height, nationality) VALUES

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,20 +21,20 @@
         <thead class="table-dark">
         <tr>
             <th>Name</th>
-            <th>Quote</th>
-            <th>Studio</th>
+            <th sec:authorize="isAuthenticated()">Quote</th>
+            <th sec:authorize="isAuthenticated()">Studio</th>
             <th>Director</th>
-            <th>Actions</th>
+            <th sec:authorize="isAuthenticated()">Actions</th>
         </tr>
         </thead>
 
         <tbody>
         <tr th:each="tempMovie : ${movies}">
             <td th:text="${tempMovie.movieName}" />
-            <td th:text="${tempMovie.movieQuote}" />
-            <td th:text="${tempMovie.studio.name}" />
+            <td th:text="${tempMovie.movieQuote}" sec:authorize="isAuthenticated()" />
+            <td th:text="${tempMovie.studio.name}" sec:authorize="isAuthenticated()" />
             <td th:text="${tempMovie.director.firstName} + ' ' + ${tempMovie.director.lastName}" />
-            <td>
+            <td sec:authorize="isAuthenticated()">
                 <a th:href="@{'/movies/' + ${tempMovie.movieId}}"
                    class="btn btn-dark btn-sm" th:text="More" />
             </td>

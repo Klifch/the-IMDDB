@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,7 @@
         <tr>
             <th>Studio Name</th>
             <th>Location</th>
-            <th>Actions</th>
+            <th sec:authorize="isAuthenticated()">Actions</th>
         </tr>
         </thead>
 
@@ -29,7 +29,7 @@
         <tr th:each="temopStudio : ${studios}">
             <td th:text="${temopStudio.name}" />
             <td th:text="${temopStudio.location}" />
-            <td>
+            <td sec:authorize="isAuthenticated()">
                 <a th:href="@{'/studios/' + ${temopStudio.studioId}}"
                    class="btn btn-dark btn-sm" th:text="More" />
             </td>
