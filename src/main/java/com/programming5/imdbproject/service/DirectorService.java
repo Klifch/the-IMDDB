@@ -2,6 +2,7 @@ package com.programming5.imdbproject.service;
 
 import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.Movie;
+import com.programming5.imdbproject.domain.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +22,8 @@ public interface DirectorService {
             String lastName,
             LocalDate dateOfBirth,
             String nationality,
-            Double height
+            Double height,
+            User creator
     );
 
     Director patch(
@@ -32,4 +34,7 @@ public interface DirectorService {
             String nationality,
             Double height
     );
+
+    Boolean didUserCreatedDirector(String username, Integer id);
+
 }

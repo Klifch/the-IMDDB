@@ -1,3 +1,5 @@
+import {csrfToken, csrfHeader} from "./util/csrf.js";
+
 const form = document.querySelector('#add-director-form');
 
 form.addEventListener('submit', async (event) => {
@@ -23,7 +25,8 @@ form.addEventListener('submit', async (event) => {
         body: JSON.stringify(requestBody),
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            [csrfHeader]: csrfToken
         }
     });
 

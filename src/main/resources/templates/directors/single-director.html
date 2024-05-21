@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
-    <title>Movie information</title>
+    <title>Director information</title>
 </head>
 <body>
 
@@ -17,6 +17,7 @@
 
         <div class="pt-3 mb-3">
             <p class="h4" th:text="${director.firstName} + ' ' + ${director.lastName}" />
+            <p class="fs-6 fst-italic" th:text="'Record created by: ' + ${author}" />
         </div>
 
         <div class="p-2">
@@ -51,8 +52,6 @@
         </div>
     </div>
 </div>
-
-<!--<div th:replace="~{fragments/footer :: footer}"></div>-->
 
 <script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 </body>

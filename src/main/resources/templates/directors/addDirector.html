@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <th:block th:insert="~{fragments/heading :: heading}" />
+
+<!--    <meta name="_csrf" th:content="${_csrf.token}"/>-->
+<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
 
-    <script th:src="@{/js/addDirector.js}" defer></script>
+    <script th:src="@{/js/addDirector.js}" type="module"></script>
 
     <title>Add Director</title>
 </head>
@@ -18,8 +23,6 @@
 <div class="container-fluid">
     <h3>Add Director</h3>
     <hr>
-
-<!--    <p class="h4 mb-4" th:text="#{add-developer-title-add}"/>-->
 
     <form id="add-director-form">
 

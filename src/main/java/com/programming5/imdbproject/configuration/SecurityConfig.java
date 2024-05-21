@@ -6,15 +6,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
 
@@ -33,7 +36,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            AuthenticationSuccessHandler customAuthenticationSuccessHandler
+    ) throws Exception {
         http.authorizeHttpRequests(authorize -> {
             authorize
                     .requestMatchers("/").permitAll()
@@ -45,9 +51,13 @@ public class SecurityConfig {
                             antMatcher(HttpMethod.GET, "/css/**"),
                             antMatcher(HttpMethod.GET, "/webjars/**")
                     ).permitAll()
+                    .requestMatchers("/directors/add").hasAnyRole("EDITOR", "ADMIN")
+                    .requestMatchers("/directors/update/**").hasAnyRole("EDITOR", "ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/directors").hasAnyRole("EDITOR", "ADMIN")
+                    .requestMatchers(HttpMethod.PATCH, "/api/directors/**").hasAnyRole("EDITOR", "ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/api/directors/**").hasAnyRole("ADMIN")
                     .anyRequest().authenticated();
         });
-        http.csrf(csrf -> csrf.disable());
 
         http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(
                 (request, response, ex) -> {
@@ -59,8 +69,11 @@ public class SecurityConfig {
                 }
         ));
         http.formLogin((login) -> login
-                        .permitAll()
-                        .loginPage("/login"));
+                .loginPage("/login")
+                .successHandler(customAuthenticationSuccessHandler)
+                .permitAll()
+        );
+
 
         http.logout(logout -> logout.logoutSuccessUrl("/"));
 

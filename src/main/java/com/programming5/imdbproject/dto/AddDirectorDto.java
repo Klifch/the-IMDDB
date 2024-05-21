@@ -7,16 +7,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 public record AddDirectorDto(
+
         @NotEmpty
         @Size(min = 3, max = 10)
         String firstName,
+
         @NotEmpty
         @Size(min = 3, max = 10)
         String lastName,
+
         @NotNull
         @JsonFormat(pattern = "dd-MM-yyyy")
         LocalDate dateOfBirth,
+
         String nationality,
+
         @Min(100)
         @Max(250)
         Double height

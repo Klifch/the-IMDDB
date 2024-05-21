@@ -32,6 +32,10 @@ public class Director {
     @OneToMany(mappedBy = "director", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Movie> movies;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", referencedColumnName = "id")
+    private User creator;
+
     public Director() {
     }
 
@@ -107,5 +111,11 @@ public class Director {
         this.nationality = nationality;
     }
 
+    public User getCreator() {
+        return creator;
+    }
 
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 }

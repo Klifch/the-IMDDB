@@ -4,6 +4,7 @@ package com.programming5.imdbproject.controller;
 import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.service.MovieService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public String showOneMovie(@PathVariable("id") Integer id, Model model) {
 
         // TODO: should return DTO to not expose the movie

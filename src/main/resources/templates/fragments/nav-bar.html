@@ -39,7 +39,11 @@
                         <span class="dropdown-item mb-3" th:text="'Username: ' + ${#authentication.name}"></span>
                         <span class="dropdown-item mb-3" th:text="'Email: ' + ${#authentication.principal.email}"></span>
                         <div class="text-center"> <!-- dropdown-item???? -->
-                            <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark me-2 p-1" th:href="@{/logout}" th:text="'Logout'" />
+                            <form th:action="@{/logout}" method="POST">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                <button type="submit" sec:authorize="isAuthenticated()" id="logout-button" class="btn btn-outline-dark me-2 p-1" th:text="'Logout'"></button>
+                            </form>
+<!--                            <a sec:authorize="isAuthenticated()" class="btn btn-outline-dark me-2 p-1" th:href="@{/logout}" th:text="'Logout'" />-->
                         </div>
                     </div>
                 </div>

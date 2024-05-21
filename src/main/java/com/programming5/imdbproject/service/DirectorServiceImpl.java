@@ -2,6 +2,7 @@ package com.programming5.imdbproject.service;
 
 import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.Movie;
+import com.programming5.imdbproject.domain.User;
 import com.programming5.imdbproject.repository.DirectorRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,14 @@ import java.util.List;
 public class DirectorServiceImpl implements DirectorService {
 
     private final DirectorRepository directorRepository;
+    private final UserService userService;
 
-    public DirectorServiceImpl(DirectorRepository directorRepository) {
+    public DirectorServiceImpl(
+            DirectorRepository directorRepository,
+            UserService userService
+    ) {
         this.directorRepository = directorRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -50,12 +56,14 @@ public class DirectorServiceImpl implements DirectorService {
             String lastName,
             LocalDate dateOfBirth,
             String nationality,
-            Double height
+            Double height,
+            User creator
     ) {
         Director director = new Director();
         director.setFirstName(firstName);
         director.setLastName(lastName);
         director.setDateOfBirth(dateOfBirth);
+        director.setCreator(creator);
 
         if (nationality != null) {
             director.setNationality(nationality);
@@ -99,6 +107,13 @@ public class DirectorServiceImpl implements DirectorService {
         directorRepository.save(director);
 
         return director;
+    }
+
+    @Override
+    public Boolean didUserCreatedDirector(String username, Integer id) {
+        User creator = userService.findByUsername(username);
+
+        return directorRepository.existsByCreatorAndDirectorId(creator, id);
     }
 
 

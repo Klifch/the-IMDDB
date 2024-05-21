@@ -2,28 +2,42 @@ package com.programming5.imdbproject.webapi;
 
 import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.Movie;
+import com.programming5.imdbproject.domain.Role;
+import com.programming5.imdbproject.domain.User;
 import com.programming5.imdbproject.dto.AddDirectorDto;
 import com.programming5.imdbproject.dto.DirectorDto;
 import com.programming5.imdbproject.dto.MovieDto;
 import com.programming5.imdbproject.dto.PatchDirectorDto;
 import com.programming5.imdbproject.service.DirectorService;
+import com.programming5.imdbproject.service.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/directors")
 public class DirectorApiController {
 
     private final DirectorService directorService;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public DirectorApiController(DirectorService directorService, ModelMapper modelMapper) {
+    public DirectorApiController(
+            DirectorService directorService,
+            UserService userService,
+            ModelMapper modelMapper
+    ) {
         this.directorService = directorService;
+        this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
@@ -45,15 +59,20 @@ public class DirectorApiController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_EDITOR') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<DirectorDto> addDirector(
             @RequestBody @Valid AddDirectorDto addDirectorDto
     ) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User creator = userService.findByUsername(authentication.getName());
+
         Director director = directorService.add(
                 addDirectorDto.firstName(),
                 addDirectorDto.lastName(),
                 addDirectorDto.dateOfBirth(),
                 addDirectorDto.nationality(),
-                addDirectorDto.height()
+                addDirectorDto.height(),
+                creator
                 );
 
         DirectorDto createdDirector = modelMapper.map(director, DirectorDto.class);
@@ -62,6 +81,7 @@ public class DirectorApiController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_EDITOR') and @directorServiceImpl.didUserCreatedDirector(principal.username, #id) or hasRole('ROLE_ADMIN')")
     public ResponseEntity<DirectorDto> updateFieldDirector(
             @RequestBody @Valid PatchDirectorDto patchDirectorDto,
             @PathVariable("id") Integer id
@@ -79,10 +99,33 @@ public class DirectorApiController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteDirector(@PathVariable("id") Integer id) {
         directorService.delete(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    // TODO: I don't like how this works, change in the future
+
+    @GetMapping("/checkPermission/{id}")
+    @PreAuthorize("hasRole('ROLE_EDITOR') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<Void> checkPermission(@PathVariable("id") Integer id) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Boolean hasPermission = directorService.didUserCreatedDirector(authentication.getName(), id);
+
+        Boolean isAdmin = userService.findByUsername(authentication.getName())
+                .getRoles()
+                .stream()
+                .anyMatch(role -> role.getName().equals("ROLE_ADMIN"));
+
+        if (hasPermission || isAdmin) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
 

@@ -1,3 +1,5 @@
+import {csrfToken, csrfHeader} from "./util/csrf.js";
+
 const form = document.querySelector('#update-director-form');
 const elements= document.querySelectorAll('.form-control');
 const submitButton = document.getElementById("update-button");
@@ -96,7 +98,8 @@ form.addEventListener('submit', async (event) => {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            [csrfHeader]: csrfToken
         },
         body: JSON.stringify(requestBody)
     });

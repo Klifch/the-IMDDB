@@ -4,6 +4,7 @@ import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.service.DirectorService;
 import com.programming5.imdbproject.viewmodel.DirectorViewModel;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,22 +42,26 @@ public class DirectorController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
     public String showOneDirector(@PathVariable("id") Integer id, Model model) {
 
         Director director = directorService.getById(id);
 
         model.addAttribute("director", modelMapper.map(director, DirectorViewModel.class));
+        model.addAttribute("author", director.getCreator().getUsername());
 
         return "/directors/single-director";
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ROLE_EDITOR') or hasRole('ROLE_ADMIN')")
     public String showForToAdd() {
 
         return "/directors/addDirector";
     }
 
     @GetMapping("/update/{id}")
+    @PreAuthorize("hasRole('ROLE_EDITOR') and @directorServiceImpl.didUserCreatedDirector(principal.username, #id) or hasRole('ROLE_ADMIN')")
     public String updateDirectorForm(@PathVariable("id") Integer id, Model model) {
 
         Director director = directorService.getById(id);
