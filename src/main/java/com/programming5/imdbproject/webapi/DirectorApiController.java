@@ -2,7 +2,6 @@ package com.programming5.imdbproject.webapi;
 
 import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.Movie;
-import com.programming5.imdbproject.domain.Role;
 import com.programming5.imdbproject.domain.User;
 import com.programming5.imdbproject.dto.AddDirectorDto;
 import com.programming5.imdbproject.dto.DirectorDto;
@@ -16,12 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/directors")
@@ -81,7 +78,7 @@ public class DirectorApiController {
     }
 
     @PatchMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_EDITOR') and @directorServiceImpl.didUserCreatedDirector(principal.username, #id) or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_EDITOR') and @directorServiceImpl.canUserModify(principal.username, #id) or hasRole('ROLE_ADMIN')")
     public ResponseEntity<DirectorDto> updateFieldDirector(
             @RequestBody @Valid PatchDirectorDto patchDirectorDto,
             @PathVariable("id") Integer id
@@ -106,7 +103,10 @@ public class DirectorApiController {
         return ResponseEntity.noContent().build();
     }
 
-    // TODO: I don't like how this works, change in the future
+    // IMPORTANT: I don't like how this works, for change in the future
+    // THIS CODE DOES NOT WORK - was used in previous versions
+    // NOW - for same purpose canModify!
+    // DELETE for production(presentation) + DELETE: hideUpdateButtons.js
 
     @GetMapping("/checkPermission/{id}")
     @PreAuthorize("hasRole('ROLE_EDITOR') or hasRole('ROLE_ADMIN')")
@@ -114,7 +114,7 @@ public class DirectorApiController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        Boolean hasPermission = directorService.didUserCreatedDirector(authentication.getName(), id);
+        Boolean hasPermission = directorService.canUserModify(authentication.getName(), id);
 
         Boolean isAdmin = userService.findByUsername(authentication.getName())
                 .getRoles()

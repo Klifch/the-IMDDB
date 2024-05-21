@@ -1,10 +1,12 @@
 package com.programming5.imdbproject.controller;
 
 import com.programming5.imdbproject.domain.Director;
+import com.programming5.imdbproject.security.CustomUserDetails;
 import com.programming5.imdbproject.service.DirectorService;
 import com.programming5.imdbproject.viewmodel.DirectorViewModel;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +29,25 @@ public class DirectorController {
     }
 
     @GetMapping("/show")
-    public String showDirectors(Model model) {
+    public String showDirectors(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         List<Director> directors = directorService.getAll();
 
         List<DirectorViewModel> directorViewModels = directors
                 .stream()
-                .map(director -> modelMapper.map(director, DirectorViewModel.class))
-                .toList();
+                .map(director -> {
+                    boolean canModify;
+                    if (userDetails != null) {
+                        boolean isCreator = directorService.canUserModify(userDetails.getUsername(), director.getDirectorId());
+                        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(
+                                role -> role.getAuthority().equals("ROLE_ADMIN")
+                        );
+                        canModify = isCreator || isAdmin;
+                    } else {
+                        canModify = false;
+                    }
+                    return DirectorViewModel.from(director, canModify);
+                }).toList();
 
         model.addAttribute("directors", directorViewModels);
 
@@ -61,7 +74,7 @@ public class DirectorController {
     }
 
     @GetMapping("/update/{id}")
-    @PreAuthorize("hasRole('ROLE_EDITOR') and @directorServiceImpl.didUserCreatedDirector(principal.username, #id) or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_EDITOR') and @directorServiceImpl.canUserModify(principal.username, #id) or hasRole('ROLE_ADMIN')")
     public String updateDirectorForm(@PathVariable("id") Integer id, Model model) {
 
         Director director = directorService.getById(id);

@@ -6,14 +6,9 @@
 
     <th:block th:insert="~{fragments/heading :: heading}" />
 
-<!--    <meta name="_csrf" th:content="${_csrf.token}"/>-->
-<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
-
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
 
-<!--    <script th:src="@{/js/util/csrf.js}" type="module"></script>-->
     <script th:src="@{/js/directorsDelete.js}" type="module"></script>
-    <script th:src="@{/js/hideUpdateButtons.js}"></script>
 
     <title>All Directors</title>
 </head>
@@ -37,21 +32,23 @@
         </thead>
 
         <tbody>
-        <tr th:each="temopDirector : ${directors}" th:id="'director-' + ${temopDirector.directorId}">
-            <td th:text="${temopDirector.firstName}" />
-            <td th:text="${temopDirector.lastName}" />
-            <td th:text="${temopDirector.dateOfBirth}" />
+        <tr th:each="tempDirector : ${directors}" th:id="'director-' + ${tempDirector.directorId}">
+            <td th:text="${tempDirector.firstName}" />
+            <td th:text="${tempDirector.lastName}" />
+            <td th:text="${tempDirector.dateOfBirth}" />
             <td sec:authorize="isAuthenticated()">
-                <a th:href="@{'/directors/' + ${temopDirector.directorId}}"
+                <a th:href="@{'/directors/' + ${tempDirector.directorId}}"
                    class="btn btn-dark btn-sm" th:text="'More'" />
 
                 <button sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="btn btn-sm btn-danger delete-director-button"
-                        th:attr="data-director-id=${temopDirector.directorId}">
+                        th:attr="data-director-id=${tempDirector.directorId}">
                     Delete
                 </button>
-<!--th:href="@{'/directors/update/' + ${temopDirector.directorId}}"-->
+
                 <a sec:authorize="hasAnyAuthority('ROLE_EDITOR', 'ROLE_ADMIN')"
-                   th:attr="data-director-id=${temopDirector.directorId}"
+                   th:if="${tempDirector.canModify}"
+                   th:attr="data-director-id=${tempDirector.directorId}"
+                   th:href="@{'/directors/update/' + ${tempDirector.directorId}}"
                    class="btn btn-sm btn-info update-director-button" th:text="'Update'" />
             </td>
         </tr>

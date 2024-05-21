@@ -35,6 +35,6 @@ public interface DirectorService {
             Double height
     );
 
-    Boolean didUserCreatedDirector(String username, Integer id);
+    Boolean canUserModify(String username, Integer id);
 
 }

@@ -110,10 +110,10 @@ public class DirectorServiceImpl implements DirectorService {
     }
 
     @Override
-    public Boolean didUserCreatedDirector(String username, Integer id) {
+    public Boolean canUserModify(String username, Integer id) {
         User creator = userService.findByUsername(username);
 
-        return directorRepository.existsByCreatorAndDirectorId(creator, id);
+        return creator != null && directorRepository.existsByCreatorAndDirectorId(creator, id);
     }
 
 

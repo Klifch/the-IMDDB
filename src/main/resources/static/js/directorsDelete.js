@@ -1,29 +1,22 @@
 import {csrfToken, csrfHeader} from "./util/csrf.js";
 
-window.addEventListener('load', function () {
-    const deleteButtons = document
-        .querySelectorAll('.delete-director-button');
+const deleteButtons = document
+    .querySelectorAll('.delete-director-button');
 
-    deleteButtons.forEach(deleteButton => {
-        const directorId = deleteButton.getAttribute(
-            'data-director-id'
-        );
+deleteButtons.forEach(deleteButton => deleteButton.addEventListener('click', deleteButtonClicked));
 
-        deleteButton.addEventListener('click', function () {
-            fetch(
-                `/api/directors/${directorId}`,
-                {
-                    method:'DELETE',
-                    headers: {
-                        [csrfHeader]: csrfToken
-                    }
-                })
-                .then(response => {
-                    if (response.status === 204) {
-                        document.querySelector(`#director-${directorId}`)
-                            .remove();
-                    }
-                });
-        });
-    });
-});
+async function deleteButtonClicked(e) {
+    const directorId = e.target.getAttribute('data-director-id');
+    const response = await fetch(
+        `/api/directors/${directorId}`,
+        {
+            method:'DELETE',
+            headers: {
+                [csrfHeader]: csrfToken
+            }
+        }
+    );
+    if (response.status === 204) {
+        document.querySelector(`#director-${directorId}`).remove();
+    }
+}
