@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "directors")
+@Table(name = "directors", uniqueConstraints = {@UniqueConstraint(columnNames = {"first_name", "last_name", "dob"})})
 public class Director {
 
     @Id
