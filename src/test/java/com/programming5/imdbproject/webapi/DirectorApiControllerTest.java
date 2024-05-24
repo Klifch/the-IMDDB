@@ -546,7 +546,7 @@ public class DirectorApiControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(get("/directors/{id}", Integer.valueOf(directorId.toString())))
+        mockMvc.perform(get("/directors/{id}", directorId))
                 .andDo(print())
                 .andExpect(status().isNotFound());
 
@@ -579,13 +579,13 @@ public class DirectorApiControllerTest {
                 .andDo(print())
                 .andExpect(status().isForbidden());
 
-        mockMvc.perform(get("/directors/{id}", Integer.valueOf(directorId.toString())))
+        mockMvc.perform(get("/directors/{id}", directorId))
                 .andDo(print())
                 .andExpect(status().isOk());
 
         directorRepository.deleteById(directorId);
 
-        mockMvc.perform(get("/directors/{id}", Integer.valueOf(directorId.toString())))
+        mockMvc.perform(get("/directors/{id}", directorId))
                 .andDo(print())
                 .andExpect(status().isNotFound());
 
