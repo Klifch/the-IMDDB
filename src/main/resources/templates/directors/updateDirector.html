@@ -6,13 +6,11 @@
 
     <th:block th:insert="~{fragments/heading :: heading}" />
 
-<!--    <meta name="_csrf" th:content="${_csrf.token}"/>-->
-<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+    <script th:src="@{/js/bundle-site.js}" defer></script>
+    <script th:src="@{/js/bundle-updateDirector.js}" defer></script>
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
-    <link href="/css/customcss.css" rel="stylesheet" />
-
-    <script th:src="@{/js/updateDirector.js}" type="module"></script>
+    <link rel="stylesheet" th:href="@{/css/bundle-updateDirector.css}" />
+    <link rel="stylesheet" th:href="@{/css/bundle-site.css}" />
 
     <title>Update Director</title>
 </head>
@@ -96,8 +94,5 @@
     </form>
 
 </div>
-
-<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-
 </body>
 </html>

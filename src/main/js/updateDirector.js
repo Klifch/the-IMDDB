@@ -1,4 +1,5 @@
 import {csrfToken, csrfHeader} from "./util/csrf.js";
+import "../scss/update_director.scss";
 
 const form = document.querySelector('#update-director-form');
 const elements= document.querySelectorAll('.form-control');

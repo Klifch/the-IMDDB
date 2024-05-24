@@ -6,7 +6,10 @@
 
     <th:block th:insert="~{fragments/heading :: heading}" />
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+    <script th:src="@{/js/bundle-site.js}" defer></script>
+
+    <link rel="stylesheet" th:href="@{/css/bundle-site.css}" />
+
     <title>Movie information</title>
 </head>
 <body>
@@ -50,9 +53,5 @@
         </div>
     </div>
 </div>
-
-<!--<div th:replace="~{fragments/footer :: footer}"></div>-->
-
-<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

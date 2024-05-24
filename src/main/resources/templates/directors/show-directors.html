@@ -6,9 +6,10 @@
 
     <th:block th:insert="~{fragments/heading :: heading}" />
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" />
+    <script th:src="@{/js/bundle-directorsDelete.js}" defer></script>
+    <script th:src="@{/js/bundle-site.js}" defer></script>
 
-    <script th:src="@{/js/directorsDelete.js}" type="module"></script>
+    <link rel="stylesheet" th:href="@{/css/bundle-site.css}" />
 
     <title>All Directors</title>
 </head>
@@ -56,8 +57,5 @@
     </table>
 
 </div>
-
-<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-
 </body>
 </html>

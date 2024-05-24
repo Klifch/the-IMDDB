@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("com.github.node-gradle.node") version "7.0.2"
 }
 
 group = "com.programming5"
@@ -23,7 +24,6 @@ dependencies {
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
-	implementation("org.webjars.npm:bootstrap:5.3.2")
 	implementation("org.webjars:webjars-locator-core:0.48")
 	implementation("org.modelmapper:modelmapper:3.2.0")
 	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
@@ -32,6 +32,16 @@ dependencies {
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
 
 }
+
+
+//tasks.register<Exec>("npm_run_build") {
+//	group = "build"
+//	commandLine("npm", "run", "build")
+//}
+//
+//tasks.named("processResources") {
+//	dependsOn("npm_run_build")
+//}
 
 tasks.withType<Test> {
 	useJUnitPlatform()
