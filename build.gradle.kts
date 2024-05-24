@@ -35,4 +35,17 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+
+	testLogging {
+		events("PASSED", "FAILED", "SKIPPED")
+		exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+		showExceptions = true
+		showCauses = true
+		showStackTraces = true
+	}
+
+	reports {
+		junitXml.required.set(true)
+		html.required.set(true)
+	}
 }

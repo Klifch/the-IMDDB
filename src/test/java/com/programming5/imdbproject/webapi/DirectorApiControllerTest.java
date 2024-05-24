@@ -525,6 +525,96 @@ public class DirectorApiControllerTest {
         userRepository.delete(userRepository.findUserByUsername("john"));
     }
 
+    /*
+        Should delete if admin
+        User authorized as admin in this test
+     */
+    @Test
+    @WithUserDetails(value = "jo3")
+    void shouldDeleteIfAuthorizedAsAdmin() throws Exception {
+        // Arrange
+        Integer directorId = createDirectorAndGetIdAsUnknownEditor();
+
+        var request = delete("/api/directors/{id}", directorId)
+                .with(csrf());
+
+        // Act
+        var response = mockMvc.perform(request);
+
+        // Assert
+        response
+                .andDo(print())
+                .andExpect(status().isNoContent());
+
+        mockMvc.perform(get("/directors/{id}", Integer.valueOf(directorId.toString())))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+
+        directorRepository.deleteById(directorId);
+
+        assertNull(directorRepository.findById(directorId).orElse(null));
+
+        userRepository.delete(userRepository.findUserByUsername("john"));
+
+    }
+
+    /*
+        Should not delete if not authorized as admin
+        User authenticated and authorized as Editor in this Test
+     */
+    @Test
+    @WithUserDetails(value = "sam")
+    void shouldNotDeleteIfNotAdmin() throws Exception {
+        // Arrange
+        Integer directorId = createDirectorAndGetId();
+
+        var request = delete("/api/directors/{id}", directorId)
+                .with(csrf());
+
+        // Act
+        var response = mockMvc.perform(request);
+
+        // Assert
+        response
+                .andDo(print())
+                .andExpect(status().isForbidden());
+
+        mockMvc.perform(get("/directors/{id}", Integer.valueOf(directorId.toString())))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        directorRepository.deleteById(directorId);
+
+        mockMvc.perform(get("/directors/{id}", Integer.valueOf(directorId.toString())))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+
+    }
+
+    /*
+        Should not delete if unauthenticated
+     */
+    @Test
+    void shouldNotDeleteIfNotAuthenticated() throws Exception {
+        // Arrange
+        Integer directorId = createDirectorAndGetIdAsUnknownEditor();
+
+        var request = delete("/api/directors/{id}", directorId)
+                .with(csrf());
+
+        // Act
+        var response = mockMvc.perform(request);
+
+        // Assert
+        response
+                .andDo(print())
+                .andExpect(status().isForbidden());
+
+        directorRepository.deleteById(directorId);
+        assertNull(directorRepository.findById(directorId).orElse(null));
+        userRepository.delete(userRepository.findUserByUsername("john"));
+    }
+
     private Integer createDirectorAndGetId() throws Exception {
         var dto = new AddDirectorDto(
                 "John",
