@@ -4,6 +4,8 @@ import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.User;
 import org.hibernate.Hibernate;
 import org.hibernate.LazyInitializationException;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@DisplayNameGeneration(DisplayNameGenerator.Simple.class)
 class DirectorRepositoryTest {
 
     @Autowired
@@ -59,8 +62,8 @@ class DirectorRepositoryTest {
         );
 
         // Act
-        sut.save(directorOne);
-        Director savedDirector = sut.findById(11).orElse(null);
+        Integer id = sut.save(directorOne).getDirectorId();
+        Director savedDirector = sut.findById(id).orElse(null);
 
         // Assert
         assertNotNull(savedDirector, "Director should be present in the Database");
@@ -69,9 +72,9 @@ class DirectorRepositoryTest {
                 savedDirector.getFirstName()
         );
 
-        sut.deleteById(11);
+        sut.deleteById(id);
 
-        assertNull(sut.findById(11).orElse(null));
+        assertNull(sut.findById(id).orElse(null));
     }
 
     @Test

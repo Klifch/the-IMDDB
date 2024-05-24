@@ -72,9 +72,7 @@ public class DirectorServiceImpl implements DirectorService {
             director.setHeight(height);
         }
 
-        directorRepository.save(director);
-
-        return director;
+        return directorRepository.save(director);
     }
 
     @Override
@@ -104,9 +102,7 @@ public class DirectorServiceImpl implements DirectorService {
             director.setHeight(height);
         }
 
-        directorRepository.save(director);
-
-        return director;
+        return directorRepository.save(director);
     }
 
     @Override

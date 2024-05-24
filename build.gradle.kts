@@ -22,6 +22,7 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.security:spring-security-test")
 	implementation("org.webjars.npm:bootstrap:5.3.2")
 	implementation("org.webjars:webjars-locator-core:0.48")
 	implementation("org.modelmapper:modelmapper:3.2.0")
