@@ -1,0 +1,32 @@
+{
+  "name": "IMBDproject",
+  "version": "1.0.0",
+  "description": "This app is used as Internet Movie and Director database.",
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "module",
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "bootswatch": "^5.3.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "css-loader": "^7.1.1",
+    "eslint": "^9.2.0",
+    "globals": "^15.2.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "sass": "^1.77.1",
+    "sass-loader": "^14.2.1",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "scripts": {
+    "build": "webpack",
+    "lint": "eslint"
+  },
+  "author": "",
+  "license": "ISC"
+}
