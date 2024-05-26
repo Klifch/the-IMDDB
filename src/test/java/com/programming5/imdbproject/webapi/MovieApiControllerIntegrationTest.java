@@ -1,6 +1,5 @@
 package com.programming5.imdbproject.webapi;
 
-import com.programming5.imdbproject.repository.MovieRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,9 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import org.springframework.security.test.context.support.WithUserDetails;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,93 +26,70 @@ import static org.hamcrest.Matchers.hasSize;
 @ActiveProfiles("test")
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
 @AutoConfigureMockMvc
-public class MovieApiControllerTest {
+public class MovieApiControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    MovieRepository movieRepository;
-
+//    @Autowired
+//    MovieRepository movieRepository;
+//
 //    @Autowired
 //    DirectorRepository directorRepository;
 //
 //    @Autowired
 //    StudioRepository studioRepository;
 //
+//    @Autowired
+//    UserRepository userRepository;
+//
 //    @BeforeEach
-//    void setUpBefore() throws Exception {
-//        Movie newMovie1 =  new Movie();
-//        Movie newMovie2 =  new Movie();
+//    void setUp() {
+//        directorRepository.deleteAll();
+//        studioRepository.deleteAll();
+//        movieRepository.deleteAll();
+//        userRepository.deleteAll();
 //
-//        Director director1 = new Director();
-//        Director director2 = new Director();
 //
-//        Studio studio1 = new Studio();
-//        Studio studio2 = new Studio();
 //
-//        director1.setDirectorId(999);
-//        director1.setFirstName("John");
-//        director1.setLastName("Doe");
-//        director1.setDateOfBirth(LocalDate.of(1990, 1, 1));
+//        Director director1 = directorRepository.save(new Director(
+//                "Christopher",
+//                "Nolan",
+//                LocalDate.of(1970, 7, 30),
+//                180.0,
+//                "UK"
+//        ));
 //
-//        director2.setDirectorId(888);
-//        director2.setFirstName("Jane");
-//        director2.setLastName("Doe");
-//        director2.setDateOfBirth(LocalDate.of(1990, 1, 1));
+//        Studio studio1 = studioRepository.save(new Studio(
+//                "Warner Bros",
+//                "Burbank, California"
+//        ));
 //
-//        directorRepository.save(director1);
-//        directorRepository.save(director2);
+//        movieRepository.save(new Movie(
+//                "The Dark Knight",
+//                "Why so serious?",
+//                LocalDate.of(2008, 7, 18),
+//                MovieStatus.RELEASED,
+//                director1,
+//                studio1
+//        ));
 //
-////        Director director = directorRepository.findById(999).orElse(null);
-////        System.out.println(director.getDirectorId());
+//        Director director2 = directorRepository.save(new Director(
+//                "Guillermo",
+//                "del Toro",
+//                LocalDate.of(1964, 10, 9),
+//                178.0,
+//                "Mexico"
+//        ));
 //
-//        studio1.setStudioId(999);
-//        studio1.setName("Happy Studio");
-//        studio1.setLocation("Happy avenue 1");
-//
-//        studio2.setStudioId(888);
-//        studio2.setName("Sad studio");
-//        studio2.setLocation("Sad avenue 2");
-//
-//        studioRepository.save(studio1);
-//        studioRepository.save(studio2);
-//
-//        newMovie1.setMovieId(999);
-//        newMovie1.setMovieName("Movie name 1");
-//        newMovie1.setMovieQuote("Always watch movie 1 first!");
-//        newMovie1.setReleaseDate(LocalDate.of(1980, 8, 8));
-//        newMovie1.setStatus(MovieStatus.RELEASED);
-//        newMovie1.setBox_office(1000D);
-//        newMovie1.setBudget(1000D);
-//        newMovie1.setDirector(directorRepository.findById(999).orElse(null));
-//        newMovie1.setStudio(studioRepository.findById(999).orElse(null));
-//
-//        newMovie2.setMovieId(888);
-//        newMovie2.setMovieName("Movie name 2");
-//        newMovie2.setMovieQuote("Never follow movie 1 suggestions!");
-//        newMovie2.setReleaseDate(LocalDate.of(1980, 8, 8));
-//        newMovie2.setStatus(MovieStatus.RELEASED);
-//        newMovie2.setBox_office(999999D);
-//        newMovie2.setBudget(9999D);
-//        newMovie2.setDirector(directorRepository.findById(888).orElse(null));
-//        newMovie2.setStudio(studioRepository.findById(888).orElse(null));
-//
-//        movieRepository.save(newMovie1);
-//        movieRepository.save(newMovie2);
-//    }
-//
-//    @AfterEach
-//    void tearDownAfter() throws Exception {
-//        movieRepository.deleteById(999);
-//        movieRepository.deleteById(888);
-//
-//        directorRepository.deleteById(999);
-//        directorRepository.deleteById(888);
-//
-//        studioRepository.deleteById(999);
-//        studioRepository.deleteById(888);
-//
+//        movieRepository.save(new Movie(
+//                "The Shape of Water",
+//                "Unable to perceive the shape of You",
+//                LocalDate.of(2017, 12, 1),
+//                MovieStatus.RELEASED,
+//                director2,
+//                studio1
+//        ));
 //    }
 
     @Test
@@ -146,7 +120,7 @@ public class MovieApiControllerTest {
                 .andExpect(jsonPath("$[1].name",
                         equalTo("The Shape of Water")))
                 .andExpect(jsonPath("$[1].id",
-                        equalTo(11)))
+                        equalTo(11))) // was 11 -> 2
                 .andExpect(jsonPath("$[*].name",
                         hasItem("The Shape of Water")))
                 .andExpect(jsonPath("$", hasSize(2)));

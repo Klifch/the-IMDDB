@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
 @AutoConfigureMockMvc
-public class DirectorControllerTest {
+public class DirectorControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -118,7 +118,6 @@ public class DirectorControllerTest {
     }
 
     // should be able to access if editor and creator
-
     @Test
     @WithUserDetails(value = "sam")
     void shouldBeAbleToAccessIfEditorAndCreator() throws Exception {

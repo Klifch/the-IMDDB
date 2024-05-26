@@ -1,7 +1,6 @@
 package com.programming5.imdbproject.service;
 
 import com.programming5.imdbproject.domain.Movie;
-import com.programming5.imdbproject.dto.MovieDto;
 import com.programming5.imdbproject.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 

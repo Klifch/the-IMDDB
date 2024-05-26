@@ -37,4 +37,6 @@ public interface DirectorService {
 
     Boolean canUserModify(String username, Integer id);
 
+    Boolean alreadyExists(String firstname, String lastname, LocalDate dateOfBirth);
+
 }

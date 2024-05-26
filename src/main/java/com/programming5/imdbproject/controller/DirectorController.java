@@ -86,6 +86,10 @@ public class DirectorController {
 
         Director director = directorService.getById(id);
 
+        if (director == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Director not found!");
+        }
+
         model.addAttribute("director", modelMapper.map(director, DirectorViewModel.class));
 
         return "/directors/updateDirector";

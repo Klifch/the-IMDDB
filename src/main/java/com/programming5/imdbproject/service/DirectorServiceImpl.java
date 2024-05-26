@@ -84,7 +84,11 @@ public class DirectorServiceImpl implements DirectorService {
             String nationality,
             Double height
     ) {
-        Director director = getById(id);
+        Director director = directorRepository.findById(id).orElse(null);
+
+        if (director == null) {
+            return null;
+        }
 
         if (firstName != null) {
             director.setFirstName(firstName);
@@ -110,6 +114,17 @@ public class DirectorServiceImpl implements DirectorService {
         User creator = userService.findByUsername(username);
 
         return creator != null && directorRepository.existsByCreatorAndDirectorId(creator, id);
+    }
+
+    @Override
+    public Boolean alreadyExists(String firstname, String lastname, LocalDate dateOfBirth) {
+        Boolean doesExist = directorRepository.existsByFirstNameAndLastNameAndDateOfBirth(
+                firstname,
+                lastname,
+                dateOfBirth
+        );
+
+        return doesExist;
     }
 
 

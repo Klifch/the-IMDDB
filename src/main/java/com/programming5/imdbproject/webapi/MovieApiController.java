@@ -1,6 +1,5 @@
 package com.programming5.imdbproject.webapi;
 
-import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.dto.MovieDto;
 import com.programming5.imdbproject.service.MovieService;
 import org.springframework.http.ResponseEntity;

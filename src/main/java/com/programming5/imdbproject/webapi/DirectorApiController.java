@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,8 +61,17 @@ public class DirectorApiController {
     public ResponseEntity<DirectorDto> addDirector(
             @RequestBody @Valid AddDirectorDto addDirectorDto
     ) {
+        // don't need those 2 lines anymore
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User creator = userService.findByUsername(authentication.getName());
+
+        if (directorService.alreadyExists(
+                addDirectorDto.firstName(),
+                addDirectorDto.lastName(),
+                addDirectorDto.dateOfBirth()
+        )) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
 
         Director director = directorService.add(
                 addDirectorDto.firstName(),
@@ -83,6 +93,11 @@ public class DirectorApiController {
             @RequestBody @Valid PatchDirectorDto patchDirectorDto,
             @PathVariable("id") Integer id
     ) {
+
+        if (directorService.getById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         Director patchedDirector = directorService.patch(
                 id,
                 patchDirectorDto.firstName(),
