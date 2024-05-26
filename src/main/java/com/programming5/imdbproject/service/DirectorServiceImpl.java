@@ -106,7 +106,9 @@ public class DirectorServiceImpl implements DirectorService {
             director.setHeight(height);
         }
 
-        return directorRepository.save(director);
+        directorRepository.save(director);
+
+        return director;
     }
 
     @Override

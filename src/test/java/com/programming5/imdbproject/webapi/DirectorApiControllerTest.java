@@ -40,7 +40,6 @@ public class DirectorApiControllerTest {
     @MockBean
     private SecurityContext securityContextHolder;
 
-    // TODO: TEST THIS ONE IT"S FUCKED UP
     @Test
     @WithMockUser(username = "editor", roles = {"EDITOR"})
     void shouldAddDirectorIfDoesNotExist() throws Exception {
@@ -94,7 +93,6 @@ public class DirectorApiControllerTest {
 
     }
 
-    // TODO: TEST THIS ONE IT"S FUCKED UP
     @Test
     @WithMockUser(username = "editor", roles = {"EDITOR"})
     void shouldNotAddDirectorIfAlreadyExists() throws Exception {
