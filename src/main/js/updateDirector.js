@@ -1,5 +1,7 @@
 import {csrfToken, csrfHeader} from "./util/csrf.js";
 import "../scss/update_director.scss";
+import moment from "moment";
+import Joi from "joi";
 
 const form = document.querySelector('#update-director-form');
 const elements= document.querySelectorAll('.form-control');
@@ -92,6 +94,33 @@ form.addEventListener('submit', async (event) => {
             addElementToJson(item, requestBody);
         }
     });
+
+    if (requestBody.dateOfBirth) {
+        const dateFormat = 'YYYY-MM-DD';
+        if (!moment(requestBody.dateOfBirth, dateFormat, true).isValid()) {
+            alert('Invalid date format. Please use YYYY-MM-DD.');
+            return;
+        }
+    }
+
+    const schema = Joi.object({
+        firstName: Joi.string().min(3).max(10),
+        lastName: Joi.string().min(3).max(15),
+        nationality: Joi.string().min(2).max(10),
+        height: Joi.number().min(100).max(250)
+    });
+
+    const { error } = schema.validate({
+        firstName: requestBody.firstName,
+        lastName: requestBody.lastName,
+        nationality: requestBody.nationality,
+        height: requestBody.height
+    });
+
+    if (error) {
+        alert(error.details[0].message);
+        return;
+    }
 
     const directorId = event.target.getAttribute('director-id');
 
