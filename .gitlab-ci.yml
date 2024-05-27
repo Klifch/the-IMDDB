@@ -1,0 +1,32 @@
+image: larsdroid/jdk-gradle-node:21-8.7.0-20.12.1-alpine
+
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
+
+build:
+  stage: build
+  script: gradle --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
+
+test:
+  stage: test
+  services:
+    - postgres:16.1-alpine
+  variables:
+    POSTGRES_DB: 'imdb-test'
+    POSTGRES_USER: 'springtest'
+    POSTGRES_PASSWORD: 'springtest'
+    CI_DB_HOST_PORT: 'postgres:5432'
+  script: gradle check
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle

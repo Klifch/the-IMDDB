@@ -1,6 +1,7 @@
 package com.programming5.imdbproject.controller;
 
 import com.programming5.imdbproject.domain.Director;
+import com.programming5.imdbproject.domain.User;
 import com.programming5.imdbproject.security.CustomUserDetails;
 import com.programming5.imdbproject.service.DirectorService;
 import com.programming5.imdbproject.viewmodel.DirectorViewModel;
@@ -9,13 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,6 +95,37 @@ public class DirectorController {
         model.addAttribute("director", modelMapper.map(director, DirectorViewModel.class));
 
         return "/directors/updateDirector";
+    }
+
+    @GetMapping("/import")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String showImportDirectors(Model model) {
+
+        return "directors/importDirectors";
+    }
+
+    @PostMapping("/import")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String importDirectorsCSV(
+            @RequestParam("directors_csv") MultipartFile file,
+            @AuthenticationPrincipal UserDetails user,
+            Model model
+    ) throws IOException {
+        System.out.println(file.getOriginalFilename());
+        System.out.println(user.getUsername());
+
+        String fileName = file.getOriginalFilename();
+
+        if (fileName != null && fileName.toLowerCase().endsWith(".csv")) {
+            model.addAttribute("wrongFile", false);
+            model.addAttribute("inProgress", true);
+
+            directorService.handleImport(file.getInputStream(), user.getUsername());
+        } else {
+            model.addAttribute("wrongFile", true);
+        }
+
+        return "directors/importDirectors";
     }
 
 }

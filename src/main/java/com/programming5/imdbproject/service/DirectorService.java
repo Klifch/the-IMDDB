@@ -4,6 +4,7 @@ import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.domain.User;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,4 +40,5 @@ public interface DirectorService {
 
     Boolean alreadyExists(String firstname, String lastname, LocalDate dateOfBirth);
 
+    void handleImport(InputStream inputStream, String creator);
 }

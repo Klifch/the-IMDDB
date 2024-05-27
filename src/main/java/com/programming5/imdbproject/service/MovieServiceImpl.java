@@ -2,6 +2,7 @@ package com.programming5.imdbproject.service;
 
 import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.repository.MovieRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findById(id).orElse(null);
     }
 
+    @Cacheable(value = "movie-search")
     @Override
     public List<Movie> search(String searchTerm) {
         return movieRepository.findByMovieNameContainingIgnoreCase(searchTerm);

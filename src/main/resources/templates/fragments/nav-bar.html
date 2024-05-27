@@ -26,6 +26,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" th:href="@{/directors/show}" th:text="'All Directors'" /></li>
                             <li><a sec:authorize="hasAnyRole('EDITOR', 'ADMIN')" class="nav-link" th:href="@{/directors/add}" th:text="'Add Directors'" /></li>
+                            <li><a sec:authorize="hasAnyRole('ADMIN')" class="nav-link" th:href="@{/directors/import}" th:text="'Import Directors'" /></li>
                         </ul>
                     </li>
                     <li sec:authorize="!isAuthenticated()" class="nav-item me-1">

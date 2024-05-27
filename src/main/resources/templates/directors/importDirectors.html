@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <th:block th:insert="~{fragments/heading :: heading}" />
+
+  <script th:src="@{/js/bundle-site.js}" defer></script>
+
+  <link rel="stylesheet" th:href="@{/css/bundle-site.css}" />
+
+  <title>Import Directors</title>
+</head>
+<body>
+
+<div th:insert="~{fragments/nav-bar :: navigation}"></div>
+
+
+<div class="container-fluid">
+
+  <div class="pt-3 pb-2 text-center">
+    <h3>Import Directors</h3>
+  </div>
+
+  <div class="container col-md-4 pt-3">
+
+    <div class="alert alert-success" th:if="${inProgress}">
+      <i class="bi bi-hourglass-split"></i> <strong>File upload successful!</strong> The import is in progress.
+    </div>
+
+    <div class="alert alert-warning" th:if="${wrongFile}">
+      <i class="bi bi-filetype-csv"></i> <strong>File should be in csv format!</strong> Try again.
+    </div>
+
+    <form id="import-director-form" th:action="@{/directors/import}" method="POST" enctype="multipart/form-data">
+
+      <div class="mb-4">
+        <label for="directors_csv" class="form-label">Select a CSV file to upload</label>
+        <input class="form-control" type="file" name="directors_csv" id="directors_csv"/>
+      </div>
+
+      <div class="text-center pt-2">
+        <button type="submit" class="btn btn-md btn-light">Import directors</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+</body>
+</html>
