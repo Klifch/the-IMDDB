@@ -1,0 +1,18 @@
+POST http://localhost:8080/api/directors
+Cookie: {{authorization}}
+X-Csrf-Token: {{csrf}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstName": "Oleksii",
+  "lastName": "Some",
+  "dateOfBirth": "09-09-1980"
+}
+
+###
+
+POST http://localhost:8080/login/user/password
+Authorization: sam qwe
+
+###

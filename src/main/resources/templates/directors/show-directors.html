@@ -18,13 +18,14 @@
 <div th:insert="~{fragments/nav-bar :: navigation}"></div>
 
 <div class="container-fluid">
-    <h3> All Directors </h3>
-    <hr>
 
+    <div class="pt-3 pb-2 text-center">
+        <h3>All Directors</h3>
+    </div>
     <!-- Add table to show directors -->
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
-        <tr>
+        <tr class="text-center">
             <th>First Name</th>
             <th>Last Name</th>
             <th>Date Of Birth</th>
@@ -33,24 +34,24 @@
         </thead>
 
         <tbody>
-        <tr th:each="tempDirector : ${directors}" th:id="'director-' + ${tempDirector.directorId}">
+        <tr class="text-center" th:each="tempDirector : ${directors}" th:id="'director-' + ${tempDirector.directorId}">
             <td th:text="${tempDirector.firstName}" />
             <td th:text="${tempDirector.lastName}" />
             <td th:text="${tempDirector.dateOfBirth}" />
             <td sec:authorize="isAuthenticated()">
                 <a th:href="@{'/directors/' + ${tempDirector.directorId}}"
-                   class="btn btn-dark btn-sm" th:text="'More'" />
-
-                <button sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="btn btn-sm btn-danger delete-director-button"
-                        th:attr="data-director-id=${tempDirector.directorId}">
-                    Delete
-                </button>
+                   class="btn btn-primary btn-sm" th:text="'More'" />
 
                 <a sec:authorize="hasAnyAuthority('ROLE_EDITOR', 'ROLE_ADMIN')"
                    th:if="${tempDirector.canModify}"
                    th:attr="data-director-id=${tempDirector.directorId}"
                    th:href="@{'/directors/update/' + ${tempDirector.directorId}}"
-                   class="btn btn-sm btn-info update-director-button" th:text="'Update'" />
+                   class="btn btn-sm btn-outline-info update-director-button" th:text="'Update'" />
+
+                <button sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="btn btn-sm btn-outline-danger delete-director-button"
+                        th:attr="data-director-id=${tempDirector.directorId}">
+                    Delete
+                </button>
             </td>
         </tr>
         </tbody>

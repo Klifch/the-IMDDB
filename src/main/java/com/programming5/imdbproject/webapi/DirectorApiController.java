@@ -61,7 +61,7 @@ public class DirectorApiController {
     public ResponseEntity<DirectorDto> addDirector(
             @RequestBody @Valid AddDirectorDto addDirectorDto
     ) {
-        // don't need those 2 lines anymore
+        // I just wanna flex that I know how to do it
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User creator = userService.findByUsername(authentication.getName());
 

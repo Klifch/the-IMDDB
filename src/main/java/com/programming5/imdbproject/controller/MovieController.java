@@ -4,6 +4,8 @@ package com.programming5.imdbproject.controller;
 import com.programming5.imdbproject.domain.Director;
 import com.programming5.imdbproject.domain.Movie;
 import com.programming5.imdbproject.service.MovieService;
+import com.programming5.imdbproject.viewmodel.MovieViewModel;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +20,11 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
+    private final ModelMapper modelMapper;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, ModelMapper modelMapper) {
         this.movieService = movieService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/show")
@@ -40,7 +44,9 @@ public class MovieController {
         // TODO: should return DTO to not expose the movie
         Movie movie = movieService.getById(id);
 
-        model.addAttribute("movie", movie);
+        MovieViewModel movieViewModel = modelMapper.map(movie, MovieViewModel.class);
+
+        model.addAttribute("movie", movieViewModel);
 
         return "/movies/single-movie";
     }

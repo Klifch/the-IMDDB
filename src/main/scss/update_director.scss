@@ -1,4 +1,10 @@
+@import "bootstrap";
+@import "bootswatch/dist/morph/bootswatch";
 .green-border {
-  border: 2px solid rgba(12, 102, 16, 0.5);
-  transition: border-color 0.3s;
+  --bs-border-color: #f00d0d;
+  border: #0dcaf0 !important;
+  background-color: #0dcaf0;
+  $border-color: $green;
+  //border: 2px solid rgba(12, 102, 16, 0.5);
+  //transition: border-color 0.3s;
 }

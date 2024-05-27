@@ -18,12 +18,16 @@
 
 
 <div class="container-fluid">
-<h3> All Movies </h3>
-<hr>
+
+    <div class="pt-3 pb-2 text-center">
+        <h3>All Movies</h3>
+    </div>
+
+<!--    <img src="https://image.tmdb.org/t/p/original/zJXigbphQSFOV8Vvmcz79DILtek.jpg" alt="Movie Poster" style="max-width:100%; height:auto;">-->
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
-        <tr>
+        <tr class="text-center">
             <th>Name</th>
             <th sec:authorize="isAuthenticated()">Quote</th>
             <th sec:authorize="isAuthenticated()">Studio</th>
@@ -33,7 +37,7 @@
         </thead>
 
         <tbody>
-        <tr th:each="tempMovie : ${movies}">
+        <tr class="text-center" th:each="tempMovie : ${movies}">
             <td th:text="${tempMovie.movieName}" />
             <td th:text="${tempMovie.movieQuote}" sec:authorize="isAuthenticated()" />
             <td th:text="${tempMovie.studio.name}" sec:authorize="isAuthenticated()" />

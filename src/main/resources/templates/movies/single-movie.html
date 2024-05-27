@@ -24,21 +24,35 @@
             <p class="h4" th:text="${movie.movieName}" />
         </div>
 
-        <div class="p-2">
-            <ul class="list-group list-group-flush">
+        <div class="row">
+            <div class="col-3 p-2">
+                <img class="img-fluid rounded mx-auto d-block" src="https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="Movie Poster" style="max-width: 100%">
+            </div>
+        <div class="col-9 p-2">
+            <ul class="list-group list-group-flush bg-light">
                 <li class="list-group-item" th:text="'ID: ' + ${movie.movieId}" />
                 <li class="list-group-item" th:text="'Quote: ' + ${movie.movieQuote}" />
                 <li class="list-group-item" th:text="'Rating: ' + ${movie.rating} + '/10'" />
-                <li class="list-group-item" th:text="'Budget: ' + ${movie.budget} + '$'" />
-                <li class="list-group-item" th:text="'Box office: ' + ${movie.box_office} + '$'" />
+                <li class="list-group-item" th:text="'Budget: ' + ${movie.budget} + 'M$'" />
+                <li class="list-group-item" th:text="'Box office: ' + ${movie.box_office} + 'M$'" />
                 <li class="list-group-item" th:text="'Status: ' + ${movie.status}" />
                 <li class="list-group-item" th:text="'Release date: ' + ${movie.releaseDate}" />
             </ul>
+            <div class="pt-5">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'Description:'" />
+                    <p class="card-text" th:text="${movie.description}" />
+                </div>
+            </div>
+            </div>
+        </div>
         </div>
 
         <div class="p-2">
 
-            <div class="list-group pb-3">
+            <div class="pb-3">
+            <div class="list-group bg-light pb-1">
                 <a th:href="@{'/directors/' + ${movie.director.directorId}}" class="list-group-item list-group-item-action">
                     <p class="mb-1" th:text="'Directed by'" />
 
@@ -49,8 +63,10 @@
                     <small class="text-body-secondary" th:text="'See more from this director'" />
                 </a>
             </div>
+            </div>
 
-            <div class="list-group pb-3">
+            <div class="pb-3">
+            <div class="list-group bg-light pb-1">
                 <a th:href="@{'/studios/' + ${movie.studio.studioId}}" class="list-group-item list-group-item-action">
                     <p class="mb-1" th:text="'Produced by'" />
 
@@ -60,6 +76,7 @@
 
                     <small class="text-body-secondary" th:text="'See more from this studio'" />
                 </a>
+            </div>
             </div>
 
         </div>
