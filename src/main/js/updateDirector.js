@@ -14,11 +14,11 @@ const hasValuesChanged = () => {
 const markChangedFields = () => {
     elements.forEach((element, index) => {
         if (element.value !== initialValues[index]) {
-            if (!element.classList.contains("green-border")) {
-                element.classList.add("green-border");
+            if (!element.classList.contains("text-success")) {
+                element.classList.add("text-success");
             }
         } else {
-            element.classList.remove("green-border");
+            element.classList.remove("text-success");
         }
     });
 }
@@ -88,7 +88,7 @@ form.addEventListener('submit', async (event) => {
     };
 
     elements.forEach((item) => {
-        if (item.classList.contains("green-border")) {
+        if (item.classList.contains("text-success")) {
             addElementToJson(item, requestBody);
         }
     });

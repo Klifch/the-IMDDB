@@ -24,7 +24,7 @@
         </div>
 
         <div class="p-2">
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush bg-light">
                 <li class="list-group-item" th:text="'ID: ' + ${director.directorId}" />
                 <li class="list-group-item" th:text="'First name: ' + ${director.firstName}" />
                 <li class="list-group-item" th:text="'Last name: ' + ${director.lastName}" />
@@ -40,7 +40,7 @@
                 <p class="h4" th:text="'Directed by ' + ${director.firstName} + ' ' + ${director.lastName} + ':'" />
             </div>
 
-            <div class="list-group pb-3">
+            <div class="list-group bg-light pb-3">
                 <a th:each="movie : ${director.movies}" th:href="@{'/movies/' + ${movie.movieId}}" class="list-group-item list-group-item-action">
                     <p class="mb-1" th:text="${movie.rating} + '/10'" />
 
